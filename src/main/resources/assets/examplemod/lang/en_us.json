@@ -1,5 +1,26 @@
 {
   "itemGroup.examplemod": "Example Mod Tab",
   "block.examplemod.example_block": "Example Block",
-  "item.examplemod.example_item": "Example Item"
+  "item.examplemod.example_item": "Example Item",
+  "key.quickping.analyze": "Analyze",
+  "key.quickping.analyzer": "Quick Ping Analyzer",
+  "message.quickping.no_target": "No target found",
+  "message.quickping.block": "Block: %s (Distance: %.1f blocks)",
+  "message.quickping.entity": "Entity: %s (Distance: %.1f blocks)",
+  "message.quickping.living_entity": "Living Entity: %s (Health: %.1f/%.1f, Distance: %.1f blocks)",
+  "message.quickping.glow_effect_applied": "Glow effect applied to %s",
+  "message.quickping.block_no_glow": "Cannot apply glow effect to blocks",
+  "message.quickping.telescope_mode": "[Telescope Mode]",
+  "message.quickping.normal_mode": "[Normal Mode]",
+  "message.quickping.prefix": "[Quick Analysis]",
+  "key.quickping.cycle_color": "Cycle Glow Color",
+  "message.quickping.glow_effect_applied_with_color": "Glow effect applied to %s with %s color",
+  "message.quickping.color_red": "Red",
+  "message.quickping.color_green": "Green",
+  "message.quickping.color_blue": "Blue",
+  "message.quickping.color_yellow": "Yellow",
+  "message.quickping.color_purple": "Purple",
+  "message.quickping.color_cyan": "Cyan",
+  "message.quickping.color_orange": "Orange",
+  "message.quickping.color_white": "White"
 }
