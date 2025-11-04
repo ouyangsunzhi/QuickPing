@@ -12,5 +12,11 @@ public class NetworkHandler {
                 GlowEffectPacket.STREAM_CODEC,
                 GlowEffectPacket::handle
         );
+
+        registrar.playToServer(
+                BlockEffectPacket.TYPE,
+                BlockEffectPacket.STREAM_CODEC,
+                BlockEffectPacket::handle
+        );
     }
 }

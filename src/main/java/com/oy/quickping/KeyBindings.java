@@ -12,9 +12,4 @@ public class KeyBindings {
             GLFW.GLFW_KEY_G,
             "key.quickping.analyzer"
     );
-//    public static final KeyMapping COLOR_CYCLE_KEY = new KeyMapping(
-//            "key.quickping.cycle_color",
-//            GLFW.GLFW_KEY_C,
-//            "key.quickping.analyzer"
-//    );
 }

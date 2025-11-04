@@ -1,6 +1,8 @@
 package com.oy.quickping;
 
+import com.oy.quickping.client.EventHandler;
 import com.oy.quickping.network.NetworkHandler;
+import com.oy.quickping.particle.CustomParticleTypes;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import org.slf4j.Logger;
@@ -23,7 +25,6 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
-import net.neoforged.neoforge.registries.DeferredRegister;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(QuickPing.MODID)
@@ -51,6 +52,8 @@ public class QuickPing {
         NeoForge.EVENT_BUS.register(this);
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
+
+        CustomParticleTypes.PARTICLE_TYPES.register(modEventBus);
         // Register the mod's KeyBindings class to the mod event bus so that the keybindings get registered
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
@@ -92,13 +95,12 @@ public class QuickPing {
 
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
 
-            NeoForge.EVENT_BUS.register(new EventHandler());
+             NeoForge.EVENT_BUS.register(new EventHandler());
         }
 
         @SubscribeEvent
         static void onKeyRegister(RegisterKeyMappingsEvent event) {
             event.register(KeyBindings.ANALYZE_KEY);
-            QuickPing.LOGGER.info("快速分析按键已注册");
         }
     }
     @EventBusSubscriber(modid = QuickPing.MODID, bus = EventBusSubscriber.Bus.MOD)

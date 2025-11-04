@@ -2,7 +2,6 @@ package com.oy.quickping.network;
 
 import com.oy.quickping.Analyzer;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
@@ -39,21 +38,16 @@ public record GlowEffectPacket(int entityId) implements CustomPacketPayload {
     public static void handle(GlowEffectPacket packet, IPayloadContext context) {
         context.enqueueWork(() -> {
             ServerPlayer player = (ServerPlayer) context.player();
-            if (player != null && player.server != null) {
-                Entity entity = player.level().getEntity(packet.entityId());
-                if (entity instanceof LivingEntity livingEntity) {
-                    MobEffectInstance glowEffect = new MobEffectInstance(
-                            MobEffects.GLOWING,
-                            Analyzer.GLOW_DURATION * 20,
-                            0,
-                            false,
-                            false
-                    );
-                    livingEntity.addEffect(glowEffect);
-
-                    //player.sendSystemMessage(Component.translatable("message.quickping.glow_effect_applied",
-                    //        entity.getDisplayName().getString()));
-                }
+            Entity entity = player.level().getEntity(packet.entityId());
+            if (entity instanceof LivingEntity livingEntity) {
+                MobEffectInstance glowEffect = new MobEffectInstance(
+                        MobEffects.GLOWING,
+                        Analyzer.GLOW_DURATION * 20,
+                        0,
+                        false,
+                        false
+                );
+                livingEntity.addEffect(glowEffect);
             }
         });
     }
