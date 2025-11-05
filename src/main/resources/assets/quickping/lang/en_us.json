@@ -1,7 +1,7 @@
 {
-  "itemGroup.examplemod": "Example Mod Tab",
-  "block.examplemod.example_block": "Example Block",
-  "item.examplemod.example_item": "Example Item",
   "key.quickping.analyze": "Ping",
-  "key.quickping.analyzer": "Quick Ping"
+  "key.quickping.analyzer": "Quick Ping",
+  "screen.quickping.config_color": "Ping Color Config",
+  "screen.quickping.config_color.preview": "Color Preview",
+  "screen.quickping.back": "Back"
 }

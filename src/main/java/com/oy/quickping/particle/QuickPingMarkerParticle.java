@@ -1,5 +1,6 @@
 package com.oy.quickping.particle;
 
+import com.oy.quickping.Config;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -24,9 +25,9 @@ public class QuickPingMarkerParticle extends TextureSheetParticle {
         this.xd = 0;
         this.yd = 0;
         this.zd = 0;
-        this.rCol = 1.0F;
-        this.gCol = 1.0F;
-        this.bCol = 1.0F;
+        this.rCol = Config.PARTICLE_RED.get().floatValue();
+        this.gCol = Config.PARTICLE_GREEN.get().floatValue();
+        this.bCol = Config.PARTICLE_BLUE.get().floatValue();
         this.setSpriteFromAge(spriteSet);
     }
 
@@ -69,7 +70,7 @@ public class QuickPingMarkerParticle extends TextureSheetParticle {
     }
     @OnlyIn(Dist.CLIENT)
     @EventBusSubscriber(modid = "quickping", bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    class QuickPingMarkerParticleRegistration {
+    static class QuickPingMarkerParticleRegistration {
         @SubscribeEvent
         public static void registerParticleProvider(RegisterParticleProvidersEvent event) {
             event.registerSpriteSet(CustomParticleTypes.QUICK_PING_MARKER.get(), QuickPingMarkerParticle.Provider::new);
