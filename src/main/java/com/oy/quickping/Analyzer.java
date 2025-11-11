@@ -3,7 +3,6 @@ package com.oy.quickping;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.oy.quickping.network.BlockEffectPacket;
 import com.oy.quickping.network.GlowEffectPacket;
-import com.oy.quickping.render.BeamRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
