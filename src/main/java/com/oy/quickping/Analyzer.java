@@ -1,10 +1,13 @@
 package com.oy.quickping;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.oy.quickping.network.BlockEffectPacket;
 import com.oy.quickping.network.GlowEffectPacket;
+import com.oy.quickping.render.BeamRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -36,10 +39,8 @@ public class Analyzer {
         }
         applyEffects(hitResult);
     }
-
     private static boolean isUsingTelescope(LocalPlayer player) {
         Minecraft minecraft = Minecraft.getInstance();
-
         ItemStack mainHandItem = player.getMainHandItem();
         ItemStack offHandItem = player.getOffhandItem();
         boolean hasTelescope = mainHandItem.getItem() == Items.SPYGLASS || offHandItem.getItem() == Items.SPYGLASS;
@@ -119,8 +120,10 @@ public class Analyzer {
                 BlockPos blockPos = blockHitResult.getBlockPos();
 
                 if (minecraft.getConnection() != null) {
-                    minecraft.getConnection().send(new BlockEffectPacket(blockPos));
+                    minecraft.getConnection().send(new BlockEffectPacket(blockPos,Config.red(),Config.green(),Config.blue()));
                 }
+
+
                 minecraft.level.playSound(
                         player,
                         player.getOnPos(),

@@ -11,13 +11,13 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 
 @OnlyIn(Dist.CLIENT)
-public class QuickPingMarkerParticle extends TextureSheetParticle {
+public class PingMarkerParticle extends TextureSheetParticle {
     private final SpriteSet spriteSet;
-    protected QuickPingMarkerParticle(ClientLevel level, double x, double y, double z,
-                                      double xd, double yd, double zd, SpriteSet spriteSet) {
+    protected PingMarkerParticle(ClientLevel level, double x, double y, double z,
+                                 double xd, double yd, double zd, SpriteSet spriteSet,
+                                 float r, float g, float b) {
         super(level, x, y, z, xd, yd, zd);
         this.spriteSet = spriteSet;
-
         this.lifetime = 300;
         this.quadSize = 0.7F;
         this.gravity = 0.0F;
@@ -25,9 +25,9 @@ public class QuickPingMarkerParticle extends TextureSheetParticle {
         this.xd = 0;
         this.yd = 0;
         this.zd = 0;
-        this.rCol = Config.PARTICLE_RED.get().floatValue();
-        this.gCol = Config.PARTICLE_GREEN.get().floatValue();
-        this.bCol = Config.PARTICLE_BLUE.get().floatValue();
+        this.rCol = r;
+        this.gCol = g;
+        this.bCol = b;
         this.setSpriteFromAge(spriteSet);
     }
 
@@ -55,17 +55,18 @@ public class QuickPingMarkerParticle extends TextureSheetParticle {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static class Provider implements ParticleProvider<SimpleParticleType> {
+    public static class Provider implements ParticleProvider<PingMarkerOptions> {
         private final SpriteSet sprite;
 
         public Provider(SpriteSet spriteSet) {
             this.sprite = spriteSet;
         }
 
-        public Particle createParticle(SimpleParticleType type, ClientLevel level,
-                                      double x, double y, double z,
-                                      double xSpeed, double ySpeed, double zSpeed) {
-           return new QuickPingMarkerParticle(level, x, y, z, 0, 0, 0, sprite);
+        public Particle createParticle(PingMarkerOptions options, ClientLevel level,
+                                       double x, double y, double z,
+                                       double xSpeed, double ySpeed, double zSpeed) {
+           return new PingMarkerParticle(level, x, y, z, xSpeed, ySpeed, zSpeed, sprite,
+                                         options.red, options.green, options.blue);
         }
     }
     @OnlyIn(Dist.CLIENT)
@@ -73,7 +74,7 @@ public class QuickPingMarkerParticle extends TextureSheetParticle {
     static class QuickPingMarkerParticleRegistration {
         @SubscribeEvent
         public static void registerParticleProvider(RegisterParticleProvidersEvent event) {
-            event.registerSpriteSet(CustomParticleTypes.QUICK_PING_MARKER.get(), QuickPingMarkerParticle.Provider::new);
+            event.registerSpriteSet(CustomParticleTypes.QUICK_PING_MARKER.get(), PingMarkerParticle.Provider::new);
         }
     }
 }

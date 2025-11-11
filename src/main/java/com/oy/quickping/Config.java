@@ -22,6 +22,14 @@ public class Config {
     public static final ModConfigSpec.DoubleValue PARTICLE_BLUE = BUILDER
             .comment("Particle blue color component (0.0 - 1.0)")
             .defineInRange("particleBlue", 1.0, 0.0, 1.0);
-
+    public static float red(){
+        return PARTICLE_RED.get().floatValue();
+    }
+    public static float green(){
+        return PARTICLE_GREEN.get().floatValue();
+    }
+    public static float blue(){
+        return PARTICLE_BLUE.get().floatValue();
+    }
     public static final ModConfigSpec SPEC = BUILDER.build();
 }
