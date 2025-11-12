@@ -6,7 +6,7 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
-@Mod(value = QuickPing.MOD_ID, dist = Dist.CLIENT)
+@Mod(value = QuickPing.MODID, dist = Dist.CLIENT)
 public class ConfigClient {
     public ConfigClient(ModContainer modContainer) {
         modContainer.registerExtensionPoint(

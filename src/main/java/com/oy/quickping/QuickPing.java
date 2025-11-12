@@ -25,10 +25,10 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
-@Mod(QuickPing.MOD_ID)
+@Mod(QuickPing.MODID)
 public class QuickPing {
     // Define mod id in a common place for everything to reference
-    public static final String MOD_ID = "quickping";
+    public static final String MODID = "quickping";
     // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
     // The constructor for the mod class is the first code that is run when your mod is loaded.
@@ -55,6 +55,9 @@ public class QuickPing {
         // Register the mod's KeyBindings class to the mod event bus so that the keybindings get registered
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+
+
+
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
@@ -76,7 +79,7 @@ public class QuickPing {
         LOGGER.info("HELLO from server starting");
     }
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-    @EventBusSubscriber(modid = QuickPing.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = QuickPing.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     static class ClientModEvents {
         @SubscribeEvent
         static void onClientSetup(FMLClientSetupEvent event) {
@@ -93,7 +96,7 @@ public class QuickPing {
             event.register(KeyBindings.ANALYZE_KEY);
         }
     }
-    @EventBusSubscriber(modid = QuickPing.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+    @EventBusSubscriber(modid = QuickPing.MODID, bus = EventBusSubscriber.Bus.MOD)
     static class NetworkEvents {
         @SubscribeEvent
         static void registerPayloadHandlers(RegisterPayloadHandlersEvent event) {

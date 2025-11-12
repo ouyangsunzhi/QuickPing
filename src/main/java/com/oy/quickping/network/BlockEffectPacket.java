@@ -1,7 +1,5 @@
 package com.oy.quickping.network;
 
-import com.oy.quickping.Config;
-import com.oy.quickping.particle.CustomParticleTypes;
 import com.oy.quickping.particle.PingMarkerOptions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -12,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
+import org.jetbrains.annotations.NotNull;
 
 public record BlockEffectPacket(BlockPos blockPos, float red, float green, float blue) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<BlockEffectPacket> TYPE = new CustomPacketPayload.Type<>(
@@ -19,28 +18,17 @@ public record BlockEffectPacket(BlockPos blockPos, float red, float green, float
     );
 
     public static final StreamCodec<FriendlyByteBuf, BlockEffectPacket> STREAM_CODEC = StreamCodec.of(
-            (buf, packet) -> {
-                buf.writeBlockPos(packet.blockPos())
-                        .writeFloat(packet.red)
-                        .writeFloat(packet.green)
-                        .writeFloat(packet.blue);
-            },
+            (buf, packet) ->
+                    buf.writeBlockPos(packet.blockPos())
+                    .writeFloat(packet.red)
+                    .writeFloat(packet.green)
+                    .writeFloat(packet.blue),
             buf -> new BlockEffectPacket(buf.readBlockPos(), buf.readFloat(), buf.readFloat(), buf.readFloat())
     );
 
-    public BlockEffectPacket(FriendlyByteBuf buf) {
-        this(buf.readBlockPos(), buf.readFloat(), buf.readFloat(), buf.readFloat());
-    }
-
-    public void encode(FriendlyByteBuf buf) {
-        buf.writeBlockPos(blockPos)
-                .writeFloat(red)
-                .writeFloat(green)
-                .writeFloat(blue);
-    }
 
     @Override
-    public Type<? extends CustomPacketPayload> type() {
+    public @NotNull Type<? extends CustomPacketPayload> type() {
         return TYPE;
     }
 
@@ -52,7 +40,7 @@ public record BlockEffectPacket(BlockPos blockPos, float red, float green, float
 
                 ClientboundLevelParticlesPacket particlePacket = new ClientboundLevelParticlesPacket(
                         new PingMarkerOptions(packet.red(), packet.green(), packet.blue()),
-                        true,
+                        false,
                         effectPos.getX() + 0.5,
                         effectPos.getY() + 0.5,
                         effectPos.getZ() + 0.5,

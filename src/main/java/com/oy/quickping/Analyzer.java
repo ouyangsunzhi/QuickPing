@@ -1,12 +1,11 @@
 package com.oy.quickping;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.oy.quickping.network.BlockEffectPacket;
 import com.oy.quickping.network.GlowEffectPacket;
+import com.oy.quickping.network.PingPosPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -98,6 +97,11 @@ public class Analyzer {
     private static void applyEffects(HitResult hitResult) {
         Minecraft minecraft = Minecraft.getInstance();
         Player player = minecraft.player;
+        if (minecraft.level == null || player == null) return;
+
+
+
+
         switch (hitResult.getType()) {
             case ENTITY:
                 Entity entity = ((EntityHitResult) hitResult).getEntity();
@@ -121,11 +125,13 @@ public class Analyzer {
                 if (minecraft.getConnection() != null) {
                     minecraft.getConnection().send(new BlockEffectPacket(blockPos,Config.red(),Config.green(),Config.blue()));
                 }
-
+                if (minecraft.getConnection() != null) {
+                    minecraft.getConnection().send(new PingPosPacket(blockPos,Config.red(),Config.green(),Config.blue()));
+                }
 
                 minecraft.level.playSound(
                         player,
-                        player.getOnPos(),
+                        blockPos,
                         net.minecraft.sounds.SoundEvents.EXPERIENCE_ORB_PICKUP,
                         net.minecraft.sounds.SoundSource.PLAYERS,
                         1.0f, 1.0f

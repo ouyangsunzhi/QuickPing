@@ -13,6 +13,7 @@ public class EventHandler {
     @SubscribeEvent
     public void onClientTick(ClientTickEvent.Pre event) {
         Minecraft minecraft = Minecraft.getInstance();
+        BeamRenderList.tick();
 
         if (minecraft.player == null) return;
 

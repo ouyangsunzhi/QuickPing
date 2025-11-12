@@ -18,5 +18,16 @@ public class NetworkHandler {
                 BlockEffectPacket.STREAM_CODEC,
                 BlockEffectPacket::handle
         );
+
+        registrar.playToClient(
+                BeamRenderPacket.TYPE,
+                BeamRenderPacket.STREAM_CODEC,
+                BeamRenderPacket::handle
+        );
+        registrar.playToServer(
+                PingPosPacket.TYPE,
+                PingPosPacket.STREAM_CODEC,
+                PingPosPacket::handle
+        );
     }
 }

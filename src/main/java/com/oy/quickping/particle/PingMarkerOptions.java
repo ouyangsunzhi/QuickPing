@@ -15,7 +15,7 @@ public class PingMarkerOptions extends ParticleType<PingMarkerOptions> implement
     public final float blue;
 
     public PingMarkerOptions(float red, float green, float blue) {
-        super(true);
+        super(false);
         this.red = red;
         this.green = green;
         this.blue = blue;

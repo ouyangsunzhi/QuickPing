@@ -1,9 +1,5 @@
 package com.oy.quickping;
 
-import java.util.List;
-
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
 // An example config class. This is not required, but it's a good idea to have one to keep your config organized.
@@ -22,6 +18,19 @@ public class Config {
     public static final ModConfigSpec.DoubleValue PARTICLE_BLUE = BUILDER
             .comment("Particle blue color component (0.0 - 1.0)")
             .defineInRange("particleBlue", 1.0, 0.0, 1.0);
+
+    public static final ModConfigSpec.DoubleValue BEAM_DISTANCE = BUILDER
+            .comment("Beam distance (0.0 - 100.0)")
+            .defineInRange("beamDistance", 15.0, 0.0, 100.0);
+    public static final ModConfigSpec.IntValue BEAM_LIFETIME = BUILDER
+            .comment("Beam lifetime (1 - 10000)")
+            .defineInRange("beamLifetime", 500, 1, 10000);
+    public static final ModConfigSpec.DoubleValue BEAM_HEIGHT = BUILDER
+            .comment("Beam height (0 - 100)")
+            .defineInRange("beamHeight", 0.0, 0.0, 100.0);
+
+
+
     public static float red(){
         return PARTICLE_RED.get().floatValue();
     }
