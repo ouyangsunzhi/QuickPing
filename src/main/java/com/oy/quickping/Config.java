@@ -21,7 +21,7 @@ public class Config {
 
     public static final ModConfigSpec.IntValue BEAM_DISTANCE = BUILDER
             .comment("Beam distance (0 - 100)")
-            .defineInRange("beamDistance", 15, 0, 100);
+            .defineInRange("beamDistance", 7, 0, 100);
     public static final ModConfigSpec.IntValue BEAM_LIFETIME = BUILDER
             .comment("Beam lifetime (0 - 10000)")
             .defineInRange("beamLifetime", 500, 0, 10000);

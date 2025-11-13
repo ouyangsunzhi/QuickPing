@@ -1,4 +1,4 @@
-package com.oy.quickping.client;
+package com.oy.quickping.client.config;
 
 import com.oy.quickping.Config;
 import net.minecraft.client.gui.GuiGraphics;

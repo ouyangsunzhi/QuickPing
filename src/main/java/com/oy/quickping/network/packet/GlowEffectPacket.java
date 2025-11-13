@@ -1,4 +1,4 @@
-package com.oy.quickping.network;
+package com.oy.quickping.network.packet;
 
 import com.oy.quickping.Analyzer;
 import net.minecraft.network.FriendlyByteBuf;

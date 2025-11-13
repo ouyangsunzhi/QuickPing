@@ -2,6 +2,7 @@ package com.oy.quickping.client;
 
 import com.oy.quickping.Analyzer;
 import com.oy.quickping.KeyBindings;
+import com.oy.quickping.client.render.BeamRenderList;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;

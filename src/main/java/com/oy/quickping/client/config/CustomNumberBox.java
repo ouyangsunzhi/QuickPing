@@ -1,4 +1,4 @@
-package com.oy.quickping.client;
+package com.oy.quickping.client.config;
 
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.EditBox;

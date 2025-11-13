@@ -20,6 +20,12 @@ public class PingMarkerOptions extends ParticleType<PingMarkerOptions> implement
         this.green = green;
         this.blue = blue;
     }
+    public PingMarkerOptions(boolean override, float red, float green, float blue) {
+        super(override);
+        this.red = red;
+        this.green = green;
+        this.blue = blue;
+    }
 
     public static final MapCodec<PingMarkerOptions> CODEC = RecordCodecBuilder.mapCodec(
             instance -> instance.group(

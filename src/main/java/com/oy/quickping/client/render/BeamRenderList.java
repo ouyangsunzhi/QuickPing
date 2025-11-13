@@ -1,4 +1,4 @@
-package com.oy.quickping.client;
+package com.oy.quickping.client.render;
 
 import com.oy.quickping.Config;
 import net.minecraft.core.BlockPos;
@@ -23,10 +23,17 @@ public class BeamRenderList {
         BEAM_DATA.replaceAll(beamData -> new BeamData(beamData.pos(), beamData.red(), beamData.green(), beamData.blue(), beamData.lifetime() - 1));
 
     }
+
+    public static void killBeam(BlockPos pos) {
+        BEAM_DATA.replaceAll(beamData ->
+                beamData.pos().equals(pos) ?
+                        new BeamData(beamData.pos(), beamData.red(), beamData.green(), beamData.blue(), 20) :
+                        beamData
+        );
+    }
     public static List<BeamData> getActiveBeams() {
         return Collections.unmodifiableList(BEAM_DATA);
     }
-
 
 
     public record BeamData(BlockPos pos, float red, float green, float blue, int lifetime) {

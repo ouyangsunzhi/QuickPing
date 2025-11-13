@@ -1,4 +1,4 @@
-package com.oy.quickping.client;
+package com.oy.quickping.client.config;
 
 import com.oy.quickping.QuickPing;
 import net.neoforged.api.distmarker.Dist;

@@ -1,6 +1,6 @@
-package com.oy.quickping.network;
+package com.oy.quickping.network.packet;
 
-import com.oy.quickping.client.BeamRenderList;
+import com.oy.quickping.client.render.BeamRenderList;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.codec.ByteBufCodecs;

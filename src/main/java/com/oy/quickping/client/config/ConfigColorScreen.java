@@ -1,4 +1,4 @@
-package com.oy.quickping.client;
+package com.oy.quickping.client.config;
 
 import com.oy.quickping.Config;
 import net.minecraft.client.gui.GuiGraphics;
@@ -120,7 +120,7 @@ public class ConfigColorScreen extends Screen {
 
         guiGraphics.setColor(r, g, b, 1.0f);
         guiGraphics.blit(
-                ResourceLocation.fromNamespaceAndPath("quickping", "textures/particle/quick_ping_marker.png"),
+                ResourceLocation.fromNamespaceAndPath("quickping", "textures/particle/ping.png"),
                 previewX, previewY, 0, 0, previewSize, previewSize, previewSize, previewSize
         );
         guiGraphics.setColor(1.0f, 1.0f, 1.0f, 1.0f);

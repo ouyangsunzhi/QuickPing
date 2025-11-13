@@ -1,4 +1,4 @@
-package com.oy.quickping.network;
+package com.oy.quickping.network.packet;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.core.BlockPos;

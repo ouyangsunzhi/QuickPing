@@ -1,4 +1,4 @@
-package com.oy.quickping.client;
+package com.oy.quickping.client.render;
 
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;

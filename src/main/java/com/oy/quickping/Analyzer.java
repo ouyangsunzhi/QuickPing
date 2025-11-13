@@ -1,8 +1,8 @@
 package com.oy.quickping;
 
-import com.oy.quickping.network.BlockEffectPacket;
-import com.oy.quickping.network.GlowEffectPacket;
-import com.oy.quickping.network.PingPosPacket;
+import com.oy.quickping.network.packet.BlockEffectPacket;
+import com.oy.quickping.network.packet.GlowEffectPacket;
+import com.oy.quickping.network.packet.PingPosPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
