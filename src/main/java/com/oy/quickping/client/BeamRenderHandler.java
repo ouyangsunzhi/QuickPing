@@ -122,7 +122,7 @@ public class BeamRenderHandler {
                     1.0F,
                     gameTime,
                     yOffset+1.5F,
-                    Math.clamp(height, 0, Config.BEAM_HEIGHT.get().floatValue()+10F),
+                    Math.clamp(height, 0, Config.BEAM_HEIGHT.get()+10F),
                     color_max,
                     color_zero,
                     beamRadius,

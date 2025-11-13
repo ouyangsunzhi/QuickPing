@@ -19,15 +19,15 @@ public class Config {
             .comment("Particle blue color component (0.0 - 1.0)")
             .defineInRange("particleBlue", 1.0, 0.0, 1.0);
 
-    public static final ModConfigSpec.DoubleValue BEAM_DISTANCE = BUILDER
-            .comment("Beam distance (0.0 - 100.0)")
-            .defineInRange("beamDistance", 15.0, 0.0, 100.0);
+    public static final ModConfigSpec.IntValue BEAM_DISTANCE = BUILDER
+            .comment("Beam distance (0 - 100)")
+            .defineInRange("beamDistance", 15, 0, 100);
     public static final ModConfigSpec.IntValue BEAM_LIFETIME = BUILDER
-            .comment("Beam lifetime (1 - 10000)")
-            .defineInRange("beamLifetime", 500, 1, 10000);
-    public static final ModConfigSpec.DoubleValue BEAM_HEIGHT = BUILDER
+            .comment("Beam lifetime (0 - 10000)")
+            .defineInRange("beamLifetime", 500, 0, 10000);
+    public static final ModConfigSpec.IntValue BEAM_HEIGHT = BUILDER
             .comment("Beam height (0 - 100)")
-            .defineInRange("beamHeight", 0.0, 0.0, 100.0);
+            .defineInRange("beamHeight", 0, 0, 100);
 
 
 
