@@ -9,7 +9,7 @@ import org.lwjgl.glfw.GLFW;
 public class KeyBindings {
     public static final KeyMapping ANALYZE_KEY = new KeyMapping(
             "key.quickping.analyze",
-            GLFW.GLFW_KEY_G,
+            GLFW.GLFW_MOUSE_BUTTON_MIDDLE,
             "key.quickping.analyzer"
     );
 }
