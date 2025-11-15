@@ -1,6 +1,7 @@
 package com.oy.quickping.network.packet;
 
 import com.oy.quickping.Analyzer;
+import com.oy.quickping.entity.EntityColorManager;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -12,27 +13,23 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-public record GlowEffectPacket(int entityId) implements CustomPacketPayload {
+public record GlowEffectPacket(int entityId, float red, float green, float blue) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<GlowEffectPacket> TYPE = new CustomPacketPayload.Type<>(
             ResourceLocation.fromNamespaceAndPath("quickping", "glow_effect")
     );
 
     public static final StreamCodec<FriendlyByteBuf, GlowEffectPacket> STREAM_CODEC = StreamCodec.of(
-            (buf, packet) -> buf.writeInt(packet.entityId()),
-            buf -> new GlowEffectPacket(buf.readInt())
+            (buf, packet) -> {
+                buf.writeInt(packet.entityId());
+                buf.writeFloat(packet.red());
+                buf.writeFloat(packet.green());
+                buf.writeFloat(packet.blue());
+            },
+            buf -> new GlowEffectPacket(buf.readInt(), buf.readFloat(), buf.readFloat(), buf.readFloat())
     );
 
     public GlowEffectPacket(FriendlyByteBuf buf) {
-        this(buf.readInt());
-    }
-
-    public void encode(FriendlyByteBuf buf) {
-        buf.writeInt(entityId);
-    }
-
-    @Override
-    public Type<? extends CustomPacketPayload> type() {
-        return TYPE;
+        this(buf.readInt(), buf.readFloat(), buf.readFloat(), buf.readFloat());
     }
 
     public static void handle(GlowEffectPacket packet, IPayloadContext context) {
@@ -44,11 +41,24 @@ public record GlowEffectPacket(int entityId) implements CustomPacketPayload {
                         MobEffects.GLOWING,
                         Analyzer.GLOW_DURATION * 20,
                         0,
-                        false,
+                        true,
                         false
                 );
                 livingEntity.addEffect(glowEffect);
+                EntityColorManager.setEntityColor(entity.getId(), packet.red(), packet.green(), packet.blue());
             }
         });
+    }
+
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeInt(entityId);
+        buf.writeFloat(red);
+        buf.writeFloat(green);
+        buf.writeFloat(blue);
+    }
+
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

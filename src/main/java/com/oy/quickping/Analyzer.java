@@ -107,7 +107,7 @@ public class Analyzer {
                 Entity entity = ((EntityHitResult) hitResult).getEntity();
                 if (entity instanceof LivingEntity) {
                     if (minecraft.getConnection() != null) {
-                        minecraft.getConnection().send(new GlowEffectPacket(entity.getId()));
+                        minecraft.getConnection().send(new GlowEffectPacket(entity.getId(),Config.red(),Config.green(),Config.blue()));
                     }
                 }
                 minecraft.level.playSound(

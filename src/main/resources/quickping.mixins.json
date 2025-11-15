@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "com.oy.quickping.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "EntityMixin"
+  ],
+  "client": [],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
