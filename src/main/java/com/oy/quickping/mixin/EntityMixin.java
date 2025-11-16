@@ -1,6 +1,5 @@
 package com.oy.quickping.mixin;
 
-import com.oy.quickping.Config;
 import com.oy.quickping.entity.EntityColorManager;
 import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;

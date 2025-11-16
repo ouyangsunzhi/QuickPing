@@ -1,11 +1,11 @@
 package com.oy.quickping.network.packet;
 
 import com.oy.quickping.Analyzer;
-import com.oy.quickping.entity.EntityColorManager;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -35,7 +35,8 @@ public record GlowEffectPacket(int entityId, float red, float green, float blue)
     public static void handle(GlowEffectPacket packet, IPayloadContext context) {
         context.enqueueWork(() -> {
             ServerPlayer player = (ServerPlayer) context.player();
-            Entity entity = player.level().getEntity(packet.entityId());
+            ServerLevel serverLevel = (ServerLevel) player.level();
+            Entity entity = serverLevel.getEntity(packet.entityId());
             if (entity instanceof LivingEntity livingEntity) {
                 MobEffectInstance glowEffect = new MobEffectInstance(
                         MobEffects.GLOWING,
@@ -45,7 +46,15 @@ public record GlowEffectPacket(int entityId, float red, float green, float blue)
                         false
                 );
                 livingEntity.addEffect(glowEffect);
-                EntityColorManager.setEntityColor(entity.getId(), packet.red(), packet.green(), packet.blue());
+                GlowColorPacket glowColorPacket = new GlowColorPacket(
+                        packet.entityId(),
+                        packet.red(),
+                        packet.green(),
+                        packet.blue()
+                );
+                for (ServerPlayer p :serverLevel.players()) {
+                    p.connection.send(glowColorPacket);
+                }
             }
         });
     }
