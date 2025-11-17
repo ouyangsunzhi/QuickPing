@@ -94,6 +94,7 @@ public class QuickPing {
         @SubscribeEvent
         static void onKeyRegister(RegisterKeyMappingsEvent event) {
             event.register(KeyBindings.ANALYZE_KEY);
+            event.register(KeyBindings.RADIAL_MENU_KEY);
         }
     }
     @EventBusSubscriber(modid = QuickPing.MODID, bus = EventBusSubscriber.Bus.MOD)

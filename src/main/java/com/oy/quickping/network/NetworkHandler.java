@@ -35,6 +35,15 @@ public class NetworkHandler {
                 GlowColorPacket.STREAM_CODEC,
                 GlowColorPacket::handle
         );
-
+        registrar.playToServer(
+                EntityMessagePacket.TYPE,
+                EntityMessagePacket.STREAM_CODEC,
+                EntityMessagePacket::handle
+        );
+        registrar.playToServer(
+                BlockMessagePacket.TYPE,
+                BlockMessagePacket.STREAM_CODEC,
+                BlockMessagePacket::handle
+        );
     }
 }

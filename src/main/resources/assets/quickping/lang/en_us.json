@@ -9,5 +9,14 @@
   "screen.quickping.config.reset": "Reset",
   "screen.quickping.config_beam.distance": "Distance (0~100)",
   "screen.quickping.config_beam.lifetime": "Lifetime (0~10000)",
-  "screen.quickping.config_beam.height": "Height (0~100)"
+  "screen.quickping.config_beam.height": "Height (0~100)",
+  "screen.quickping.radial_menu": "Radial Menu",
+  "radial.menu.option1": "Ping",
+  "radial.menu.option2": "Option 2",
+  "radial.menu.option3": "Option 3",
+  "radial.menu.option4": "Option 4",
+  "screen.quickping.config_radial": "Radial Config",
+  "message.quickping.entity": "I see a",
+  "message.quickping.entity.in": "at",
+  "message.quickping.block": "I marked a location "
 }

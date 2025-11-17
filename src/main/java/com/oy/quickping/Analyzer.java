@@ -1,8 +1,6 @@
 package com.oy.quickping;
 
-import com.oy.quickping.network.packet.BlockEffectPacket;
-import com.oy.quickping.network.packet.GlowEffectPacket;
-import com.oy.quickping.network.packet.PingPosPacket;
+import com.oy.quickping.network.packet.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
@@ -20,7 +18,7 @@ public class Analyzer {
     public static final int GLOW_DURATION = 10;
     private static final double NORMAL_DISTANCE = 15.0;
     private static final double MAX_DISTANCE = 100.0;
-    public static void analyze() {
+    public static void analyze(boolean isSend) {
         Minecraft minecraft = Minecraft.getInstance();
         LocalPlayer player = minecraft.player;
 
@@ -35,7 +33,7 @@ public class Analyzer {
         if (hitResult == null) {
             return;
         }
-        applyEffects(hitResult);
+        applyEffects(hitResult, isSend);
     }
     private static boolean isUsingTelescope(LocalPlayer player) {
         Minecraft minecraft = Minecraft.getInstance();
@@ -94,13 +92,10 @@ public class Analyzer {
         return null;
     }
 
-    private static void applyEffects(HitResult hitResult) {
+    private static void applyEffects(HitResult hitResult, boolean isSend) {
         Minecraft minecraft = Minecraft.getInstance();
         Player player = minecraft.player;
         if (minecraft.level == null || player == null) return;
-
-
-
 
         switch (hitResult.getType()) {
             case ENTITY:
@@ -108,6 +103,9 @@ public class Analyzer {
                 if (entity instanceof LivingEntity) {
                     if (minecraft.getConnection() != null) {
                         minecraft.getConnection().send(new GlowEffectPacket(entity.getId(),Config.red(),Config.green(),Config.blue()));
+                        if (isSend) {
+                            minecraft.getConnection().send(new EntityMessagePacket(entity.getOnPos(),entity.getName().getString(),Config.red(),Config.green(),Config.blue()));
+                        }
                     }
                 }
                 minecraft.level.playSound(
@@ -124,11 +122,11 @@ public class Analyzer {
 
                 if (minecraft.getConnection() != null) {
                     minecraft.getConnection().send(new BlockEffectPacket(blockPos,Config.red(),Config.green(),Config.blue()));
-                }
-                if (minecraft.getConnection() != null) {
                     minecraft.getConnection().send(new PingPosPacket(blockPos,Config.red(),Config.green(),Config.blue()));
+                    if (isSend) {
+                        minecraft.getConnection().send(new BlockMessagePacket(blockPos,Config.red(),Config.green(),Config.blue()));
+                    }
                 }
-
                 minecraft.level.playSound(
                         player,
                         blockPos,

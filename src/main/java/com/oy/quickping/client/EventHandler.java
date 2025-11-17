@@ -19,7 +19,10 @@ public class EventHandler {
         if (minecraft.player == null) return;
 
         while (KeyBindings.ANALYZE_KEY.consumeClick()) {
-            Analyzer.analyze();
+            Analyzer.analyze(false);
+        }
+        while (KeyBindings.RADIAL_MENU_KEY.consumeClick()) {
+            minecraft.setScreen(new RadialMenuScreen());
         }
     }
 }

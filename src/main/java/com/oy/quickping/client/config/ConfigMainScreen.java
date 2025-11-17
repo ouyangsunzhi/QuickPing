@@ -43,6 +43,7 @@ public class ConfigMainScreen extends Screen {
         ).bounds(this.width / 2 - buttonWidth / 2, 80 - buttonHeight / 2, buttonWidth, buttonHeight).build();
         this.addRenderableWidget(beamButton);
 
+
         Button backButton = Button.builder(
                 Component.translatable("screen.quickping.back"),
                 button -> this.minecraft.setScreen(this.parent)

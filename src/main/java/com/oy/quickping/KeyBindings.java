@@ -12,4 +12,9 @@ public class KeyBindings {
             GLFW.GLFW_KEY_G,
             "key.quickping.analyzer"
     );
+    public static final KeyMapping RADIAL_MENU_KEY = new KeyMapping(
+            "screen.quickping.radial_menu",
+            GLFW.GLFW_KEY_LEFT_ALT,
+            "key.quickping.analyzer"
+    );
 }
