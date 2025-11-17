@@ -12,11 +12,16 @@
   "screen.quickping.config_beam.height": "Height (0~100)",
   "screen.quickping.radial_menu": "Radial Menu",
   "radial.menu.option1": "Ping",
-  "radial.menu.option2": "Option 2",
-  "radial.menu.option3": "Option 3",
-  "radial.menu.option4": "Option 4",
+  "radial.menu.option2": "Item",
+  "radial.menu.option3": "Pos",
+  "radial.menu.option4": "Block",
   "screen.quickping.config_radial": "Radial Config",
-  "message.quickping.entity": "I see a",
-  "message.quickping.entity.in": "at",
-  "message.quickping.block": "I marked a location "
+  "message.quickping.entity": "I see a ",
+  "message.quickping.pos": "I marked a pos ",
+  "message.quickping.player": "I'm here! ",
+  "message.quickping.item": "I have ",
+  "message.quickping.item.in": " ",
+  "message.quickping.no_item": "You are not holding any item",
+  "message.quickping.block": "I found a ",
+  "message.quickping.no_block": "You have not marked any block"
 }

@@ -4,9 +4,12 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.oy.quickping.Analyzer;
 import com.oy.quickping.Config;
 import com.oy.quickping.KeyBindings;
-import com.oy.quickping.network.packet.EntityMessagePacket;
+import com.oy.quickping.network.packet.BlockMessagePacket;
+import com.oy.quickping.network.packet.ItemMessagePacket;
+import com.oy.quickping.network.packet.PlayerMessagePacket;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import org.lwjgl.glfw.GLFW;
 
@@ -217,15 +220,24 @@ public class RadialMenuScreen extends Screen {
     }
 
     private void handleOption2() {
-        System.out.println("Option 2 selected");
+        if (minecraft.player.getMainHandItem().isEmpty()){
+            minecraft.player.sendSystemMessage(Component.translatable("message.quickping.no_item"));
+            return;
+        }
+        minecraft.getConnection().send(new ItemMessagePacket(minecraft.player.getMainHandItem(),Config.red(),Config.green(),Config.blue()));
     }
 
     private void handleOption3() {
-        System.out.println("Option 3 selected");
+        minecraft.getConnection().send(new PlayerMessagePacket(minecraft.player.getOnPos(),Config.red(),Config.green(),Config.blue()));
     }
 
     private void handleOption4() {
-        System.out.println("Option 4 selected");
+        BlockPos pos = Analyzer.analyze();
+        if (pos == null){
+            minecraft.player.sendSystemMessage(Component.translatable("message.quickping.no_block"));
+            return;
+        }
+        minecraft.getConnection().send(new BlockMessagePacket(pos,Config.red(),Config.green(),Config.blue()));
     }
 
 

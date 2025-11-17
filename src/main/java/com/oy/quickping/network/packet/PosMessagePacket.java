@@ -10,49 +10,44 @@ import net.minecraft.network.protocol.game.ClientboundSystemChatPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-public record BlockMessagePacket(BlockPos pos,float r,float g,float b) implements CustomPacketPayload {
-    public static final CustomPacketPayload.Type<BlockMessagePacket> TYPE = new CustomPacketPayload.Type<>(
-            ResourceLocation.fromNamespaceAndPath("quickping", "block_message")
+public record PosMessagePacket(BlockPos pos, float r, float g, float b)implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<PosMessagePacket> TYPE = new CustomPacketPayload.Type<>(
+            ResourceLocation.fromNamespaceAndPath("quickping", "pos_message")
     );
-    public static final StreamCodec<ByteBuf, BlockMessagePacket> STREAM_CODEC = StreamCodec.composite(
+    public static final StreamCodec<ByteBuf, PosMessagePacket> STREAM_CODEC = StreamCodec.composite(
             BlockPos.STREAM_CODEC,
-            BlockMessagePacket::pos,
+            PosMessagePacket::pos,
             ByteBufCodecs.FLOAT,
-            BlockMessagePacket::r,
+            PosMessagePacket::r,
             ByteBufCodecs.FLOAT,
-            BlockMessagePacket::g,
+            PosMessagePacket::g,
             ByteBufCodecs.FLOAT,
-            BlockMessagePacket::b,
-            BlockMessagePacket::new
+            PosMessagePacket::b,
+            PosMessagePacket::new
     );
-    public static void handle(BlockMessagePacket packet, IPayloadContext context) {
-        context.enqueueWork(()->{
-            ServerPlayer sender = (ServerPlayer) context.player();
-            ServerLevel serverLevel = (ServerLevel) sender.level();
-            int color = (int) (0xFF * packet.r()) << 16 | (int) (0xFF * packet.g()) << 8 | (int) (0xFF * packet.b());
-            BlockState blockState = serverLevel.getBlockState(packet.pos());
-            Component blockName = blockState.getBlock().getName();
-
-            Component message = Component
-                    .literal("["+sender.getDisplayName().getString()+"] ")
-                    .append(Component.translatable("message.quickping.block"))
-                    .append(blockName)
-                    .append(Component.literal(" ["+packet.pos().toShortString()+"]"))
-                    .withColor(color);
-            for (ServerPlayer player : serverLevel.players()){
-                player.connection.send( new ClientboundSystemChatPacket(message,false));
-            }
-        });
-    }
-
-
 
 
     @Override
     public Type<? extends CustomPacketPayload> type() {
         return TYPE;
+    }
+    public static void handle(PosMessagePacket packet, IPayloadContext context) {
+        context.enqueueWork(()->{
+            ServerPlayer sender = (ServerPlayer) context.player();
+            ServerLevel serverLevel = (ServerLevel) sender.level();
+            int color = (int) (0xFF * packet.r()) << 16 | (int) (0xFF * packet.g()) << 8 | (int) (0xFF * packet.b());
+
+
+            Component message = Component
+                    .literal("["+sender.getDisplayName().getString()+"] ")
+                    .append(Component.translatable("message.quickping.pos"))
+                    .append(Component.literal("["+packet.pos().toShortString()+"]"))
+                    .withColor(color);
+            for (ServerPlayer player : serverLevel.players()){
+                player.connection.send( new ClientboundSystemChatPacket(message,false));
+            }
+        });
     }
 }

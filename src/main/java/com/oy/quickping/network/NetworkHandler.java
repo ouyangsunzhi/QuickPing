@@ -41,6 +41,21 @@ public class NetworkHandler {
                 EntityMessagePacket::handle
         );
         registrar.playToServer(
+                PosMessagePacket.TYPE,
+                PosMessagePacket.STREAM_CODEC,
+                PosMessagePacket::handle
+        );
+        registrar.playToServer(
+                PlayerMessagePacket.TYPE,
+                PlayerMessagePacket.STREAM_CODEC,
+                PlayerMessagePacket::handle
+        );
+        registrar.playToServer(
+                ItemMessagePacket.TYPE,
+                ItemMessagePacket.STREAM_CODEC,
+                ItemMessagePacket::handle
+        );
+        registrar.playToServer(
                 BlockMessagePacket.TYPE,
                 BlockMessagePacket.STREAM_CODEC,
                 BlockMessagePacket::handle

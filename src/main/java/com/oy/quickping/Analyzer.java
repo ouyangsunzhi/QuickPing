@@ -35,6 +35,26 @@ public class Analyzer {
         }
         applyEffects(hitResult, isSend);
     }
+    public static BlockPos analyze(){
+        Minecraft minecraft = Minecraft.getInstance();
+        LocalPlayer player = minecraft.player;
+
+        if (player == null) return null;
+
+        boolean isUsingTelescope = isUsingTelescope(player,true);
+
+        double detectionDistance = isUsingTelescope ? MAX_DISTANCE : NORMAL_DISTANCE;
+
+        HitResult hitResult = getExtendedHitResult(player, detectionDistance);
+
+        if (hitResult == null) {
+            return null;
+        }
+        if (hitResult.getType() == HitResult.Type.BLOCK){
+            return ((BlockHitResult) hitResult).getBlockPos();
+        }
+        return null;
+    }
     private static boolean isUsingTelescope(LocalPlayer player,boolean isSend) {
         Minecraft minecraft = Minecraft.getInstance();
         ItemStack mainHandItem = player.getMainHandItem();
@@ -128,7 +148,7 @@ public class Analyzer {
                     minecraft.getConnection().send(new BlockEffectPacket(blockPos,Config.red(),Config.green(),Config.blue()));
                     minecraft.getConnection().send(new PingPosPacket(blockPos,Config.red(),Config.green(),Config.blue()));
                     if (isSend) {
-                        minecraft.getConnection().send(new BlockMessagePacket(blockPos,Config.red(),Config.green(),Config.blue()));
+                        minecraft.getConnection().send(new PosMessagePacket(blockPos,Config.red(),Config.green(),Config.blue()));
                     }
                 }
                 minecraft.level.playSound(

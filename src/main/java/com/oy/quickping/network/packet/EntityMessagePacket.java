@@ -46,8 +46,7 @@ public record EntityMessagePacket(BlockPos pos, String name, float r, float g, f
                     .literal("["+sender.getDisplayName().getString()+"] ")
                     .append(Component.translatable("message.quickping.entity"))
                     .append(packet.name)
-                    .append(Component.translatable("message.quickping.entity.in"))
-                    .append(Component.literal(packet.pos().toShortString()))
+                    .append(Component.literal(" ["+packet.pos().toShortString()+"]"))
                     .withColor(color);
             for (ServerPlayer player : serverLevel.players()){
                 player.connection.send( new ClientboundSystemChatPacket(message,false));

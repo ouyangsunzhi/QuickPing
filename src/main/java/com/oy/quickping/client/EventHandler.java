@@ -15,9 +15,7 @@ public class EventHandler {
     public void onClientTick(ClientTickEvent.Pre event) {
         Minecraft minecraft = Minecraft.getInstance();
         BeamRenderList.tick();
-
         if (minecraft.player == null) return;
-
         while (KeyBindings.ANALYZE_KEY.consumeClick()) {
             Analyzer.analyze(false);
         }
