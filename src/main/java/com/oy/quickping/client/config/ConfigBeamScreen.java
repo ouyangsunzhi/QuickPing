@@ -8,6 +8,12 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 
+/**
+ * neoforge 有一个ConfigurationScreen类可以快捷创建配置界面，但是我没看懂doc，
+ * 这个类是标准的力大砖飞，等我理解之后应该会重构。
+ * 如果你看见这段注释，而且你恰好知道ConfigurationScreen类的使用方法，
+ * 请联系我。我会非常感谢你的。
+ */
 public class ConfigBeamScreen extends Screen {
     private final Screen parent;
     public ConfigBeamScreen(Screen parent) {

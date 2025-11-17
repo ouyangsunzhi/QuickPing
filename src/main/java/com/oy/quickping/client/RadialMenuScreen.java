@@ -12,7 +12,10 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import org.lwjgl.glfw.GLFW;
-
+/**
+ * 这个轮盘其实可以自定义的有很多，比如SEGMENT_COUNT，我测试的时候最大调到12都不会影响功能，只是字看不见了。
+ * 没写成自定义完全是因为配置菜单不会写（详见ConfigBeamScreen.class）
+ */
 public class RadialMenuScreen extends Screen {
     private static final int SEGMENT_COUNT = 4;
     private static final double MENU_RADIUS = 42.0;
