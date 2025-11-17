@@ -24,7 +24,7 @@ public class Analyzer {
 
         if (player == null) return;
 
-        boolean isUsingTelescope = isUsingTelescope(player);
+        boolean isUsingTelescope = isUsingTelescope(player,isSend);
 
         double detectionDistance = isUsingTelescope ? MAX_DISTANCE : NORMAL_DISTANCE;
 
@@ -35,7 +35,7 @@ public class Analyzer {
         }
         applyEffects(hitResult, isSend);
     }
-    private static boolean isUsingTelescope(LocalPlayer player) {
+    private static boolean isUsingTelescope(LocalPlayer player,boolean isSend) {
         Minecraft minecraft = Minecraft.getInstance();
         ItemStack mainHandItem = player.getMainHandItem();
         ItemStack offHandItem = player.getOffhandItem();
@@ -43,6 +43,10 @@ public class Analyzer {
 
         boolean isUsingItem = minecraft.options.keyUse.isDown();
 
+        //实在不知道怎么修
+        if (isSend){
+            isUsingItem = true;
+        }
         return hasTelescope && isUsingItem;
     }
 
