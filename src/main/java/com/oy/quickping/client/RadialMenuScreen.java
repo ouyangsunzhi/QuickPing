@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.oy.quickping.Analyzer;
 import com.oy.quickping.Config;
 import com.oy.quickping.KeyBindings;
+import com.oy.quickping.network.packet.PingParticlesPacket;
 import com.oy.quickping.network.packet.BlockMessagePacket;
 import com.oy.quickping.network.packet.ItemMessagePacket;
 import com.oy.quickping.network.packet.PlayerMessagePacket;
@@ -18,7 +19,7 @@ import org.lwjgl.glfw.GLFW;
  */
 public class RadialMenuScreen extends Screen {
     private static final int SEGMENT_COUNT = 4;
-    private static final double MENU_RADIUS = 42.0;
+    private static final double MENU_RADIUS = 50.0;
     private static final double INNER_RADIUS = 10.0;
     private static final double SEGMENT_ANGLE = (2 * Math.PI) / SEGMENT_COUNT;
 
@@ -241,6 +242,7 @@ public class RadialMenuScreen extends Screen {
             return;
         }
         minecraft.getConnection().send(new BlockMessagePacket(pos,Config.red(),Config.green(),Config.blue()));
+        minecraft.getConnection().send(new PingParticlesPacket(pos,Config.red(),Config.green(),Config.blue()));
     }
 
 

@@ -15,9 +15,9 @@ public class NetworkHandler {
         );
 
         registrar.playToServer(
-                BlockEffectPacket.TYPE,
-                BlockEffectPacket.STREAM_CODEC,
-                BlockEffectPacket::handle
+                PingParticlesPacket.TYPE,
+                PingParticlesPacket.STREAM_CODEC,
+                PingParticlesPacket::handle
         );
 
         registrar.playToClient(

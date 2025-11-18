@@ -16,18 +16,18 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
-public record BlockEffectPacket(BlockPos blockPos, float red, float green, float blue) implements CustomPacketPayload {
-    public static final CustomPacketPayload.Type<BlockEffectPacket> TYPE = new CustomPacketPayload.Type<>(
+public record PingParticlesPacket(BlockPos blockPos, float red, float green, float blue) implements CustomPacketPayload {
+    public static final CustomPacketPayload.Type<PingParticlesPacket> TYPE = new CustomPacketPayload.Type<>(
             ResourceLocation.fromNamespaceAndPath("quickping", "block_effect")
     );
 
-    public static final StreamCodec<FriendlyByteBuf, BlockEffectPacket> STREAM_CODEC = StreamCodec.of(
+    public static final StreamCodec<FriendlyByteBuf, PingParticlesPacket> STREAM_CODEC = StreamCodec.of(
             (buf, packet) ->
                     buf.writeBlockPos(packet.blockPos())
                     .writeFloat(packet.red)
                     .writeFloat(packet.green)
                     .writeFloat(packet.blue),
-            buf -> new BlockEffectPacket(buf.readBlockPos(), buf.readFloat(), buf.readFloat(), buf.readFloat())
+            buf -> new PingParticlesPacket(buf.readBlockPos(), buf.readFloat(), buf.readFloat(), buf.readFloat())
     );
 
 
@@ -36,7 +36,7 @@ public record BlockEffectPacket(BlockPos blockPos, float red, float green, float
         return TYPE;
     }
 
-    public static void handle(BlockEffectPacket packet, IPayloadContext context) {
+    public static void handle(PingParticlesPacket packet, IPayloadContext context) {
         context.enqueueWork(() -> {
                 ServerPlayer sender = (ServerPlayer) context.player();
                 ServerLevel serverLevel = (ServerLevel) sender.level();
@@ -54,9 +54,6 @@ public record BlockEffectPacket(BlockPos blockPos, float red, float green, float
                 int distance = Config.BEAM_DISTANCE.get();
 
             for (ServerPlayer player : serverLevel.players()) {
-                if (player.distanceToSqr(Vec3.atLowerCornerOf(effectPos)) > distance * distance) {
-                    break;
-                }
                 Direction playerDirection = getClose(effectPos, player);
                 ClientboundLevelParticlesPacket particlePacketToSend;
 

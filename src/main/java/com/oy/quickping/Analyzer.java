@@ -95,7 +95,7 @@ public class Analyzer {
         double closestDistance = Double.MAX_VALUE;
 
         for (Entity entity : entities) {
-            AABB entityBox = entity.getBoundingBox().inflate(0.3); // 稍微扩大实体边界框
+            AABB entityBox = entity.getBoundingBox().inflate(0.3);
             net.minecraft.world.phys.Vec3 entityHit = entityBox.clip(start, end).orElse(null);
 
             if (entityHit != null) {
@@ -145,8 +145,12 @@ public class Analyzer {
                 BlockPos blockPos = blockHitResult.getBlockPos();
 
                 if (minecraft.getConnection() != null) {
-                    minecraft.getConnection().send(new BlockEffectPacket(blockPos,Config.red(),Config.green(),Config.blue()));
-                    minecraft.getConnection().send(new PingPosPacket(blockPos,Config.red(),Config.green(),Config.blue()));
+                    if(player.distanceToSqr(Vec3.atLowerCornerOf(blockPos)) <= NORMAL_DISTANCE * NORMAL_DISTANCE){
+                        minecraft.getConnection().send(new PingParticlesPacket(blockPos,Config.red(),Config.green(),Config.blue()));
+                    }else {
+                        minecraft.getConnection().send(new PingPosPacket(blockPos,Config.red(),Config.green(),Config.blue()));
+                    }
+
                     if (isSend) {
                         minecraft.getConnection().send(new PosMessagePacket(blockPos,Config.red(),Config.green(),Config.blue()));
                     }
