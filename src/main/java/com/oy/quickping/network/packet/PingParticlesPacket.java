@@ -44,6 +44,7 @@ public record PingParticlesPacket(BlockPos blockPos, float red, float green, flo
                 ClientboundLevelParticlesPacket airPacket = new ClientboundLevelParticlesPacket(
                         new PingMarkerOptions(false, packet.red(), packet.green(), packet.blue()),
                         false,
+                        false,
                         effectPos.getX() + 0.5,
                         effectPos.getY()+0.5,
                         effectPos.getZ() + 0.5,
@@ -77,6 +78,7 @@ public record PingParticlesPacket(BlockPos blockPos, float red, float green, flo
 
                     particlePacketToSend = new ClientboundLevelParticlesPacket(
                             new PingMarkerOptions(false, packet.red(), packet.green(), packet.blue()),
+                            false,
                             false,
                             particleX,
                             particleY,
