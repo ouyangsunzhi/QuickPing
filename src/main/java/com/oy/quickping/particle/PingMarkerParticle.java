@@ -62,7 +62,7 @@ public class PingMarkerParticle extends TextureSheetParticle {
         }
     }
     @OnlyIn(Dist.CLIENT)
-    @EventBusSubscriber(modid = QuickPing.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = QuickPing.MODID, value = Dist.CLIENT)
     static class QuickPingMarkerParticleRegistration {
         @SubscribeEvent
         public static void registerParticleProvider(RegisterParticleProvidersEvent event) {
