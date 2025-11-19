@@ -12,6 +12,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundSystemChatPacket;
 import org.lwjgl.glfw.GLFW;
 /**
  * 这个轮盘其实可以自定义的有很多，比如SEGMENT_COUNT，我测试的时候最大调到12都不会影响功能，只是字看不见了。
@@ -225,7 +226,7 @@ public class RadialMenuScreen extends Screen {
 
     private void handleOption2() {
         if (minecraft.player.getMainHandItem().isEmpty()){
-            minecraft.player.sendSystemMessage(Component.translatable("message.quickping.no_item"));
+            minecraft.player.connection.handleSystemChat(new ClientboundSystemChatPacket(Component.translatable("message.quickping.no_item"), false));
             return;
         }
         minecraft.getConnection().send(new ItemMessagePacket(minecraft.player.getMainHandItem(),Config.red(),Config.green(),Config.blue()));
@@ -238,7 +239,7 @@ public class RadialMenuScreen extends Screen {
     private void handleOption4() {
         BlockPos pos = Analyzer.analyze();
         if (pos == null){
-            minecraft.player.sendSystemMessage(Component.translatable("message.quickping.no_block"));
+            minecraft.player.connection.handleSystemChat(new ClientboundSystemChatPacket(Component.translatable("message.quickping.no_block"), false));
             return;
         }
         minecraft.getConnection().send(new BlockMessagePacket(pos,Config.red(),Config.green(),Config.blue()));

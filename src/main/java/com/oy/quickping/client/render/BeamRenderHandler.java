@@ -7,13 +7,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
+
+import java.awt.*;
 
 @EventBusSubscriber(modid = QuickPing.MODID,value = Dist.CLIENT)
 public class BeamRenderHandler {
@@ -52,24 +53,10 @@ public class BeamRenderHandler {
                     pos.getZ() - cameraPos.z
             );
 
-            int color_low = FastColor.ARGB32.color(
-                    0x1F,
-                    (int) (beamData.red() * 255),
-                    (int) (beamData.green() * 255),
-                    (int) (beamData.blue() * 255)
-            );
-            int color_zero = FastColor.ARGB32.color(
-                    0,
-                    (int) (beamData.red() * 255),
-                    (int) (beamData.green() * 255),
-                    (int) (beamData.blue() * 255)
-            );
-            int color_max = FastColor.ARGB32.color(
-                    0x9F,
-                    (int) (beamData.red() * 255),
-                    (int) (beamData.green() * 255),
-                    (int) (beamData.blue() * 255)
-            );
+            Color dataColor_low = new Color(beamData.red(), beamData.green(), beamData.blue(), (float) 31 /255);
+            Color dataColor_max = new Color(beamData.red(), beamData.green(), beamData.blue(), (float) 159 /255);
+            Color dataColor_zero = new Color(beamData.red(), beamData.green(), beamData.blue(), 0);
+
             ResourceLocation beamTexture = ResourceLocation.fromNamespaceAndPath(QuickPing.MODID, "textures/entity/beam.png");
             ResourceLocation glowTexture = ResourceLocation.fromNamespaceAndPath(QuickPing.MODID, "textures/entity/glow.png");
 
@@ -85,8 +72,8 @@ public class BeamRenderHandler {
                     gameTime,
                     yOffset,
                     Math.min(height, 0.5F),
-                    color_zero,
-                    color_low,
+                    dataColor_zero,
+                    dataColor_low,
                     beamRadius,
                     glowRadius);
             height -= 0.5F;
@@ -97,8 +84,8 @@ public class BeamRenderHandler {
                     gameTime,
                     yOffset+0.5f,
                     Math.clamp(height, 0, 0.5F),
-                    color_low,
-                    color_max,
+                    dataColor_low,
+                    dataColor_max,
                     beamRadius,
                     glowRadius);
             height -= 0.5F;
@@ -111,8 +98,8 @@ public class BeamRenderHandler {
                     gameTime,
                     yOffset+1.0f,
                     Math.clamp(height, 0, 0.5F),
-                    color_max,
-                    color_max,
+                    dataColor_max,
+                    dataColor_max,
                     beamRadius,
                     glowRadius);
             height -= 0.5F;
@@ -123,8 +110,8 @@ public class BeamRenderHandler {
                     gameTime,
                     yOffset+1.5F,
                     Math.clamp(height, 0, Config.BEAM_HEIGHT.get()+10F),
-                    color_max,
-                    color_zero,
+                    dataColor_max,
+                    dataColor_zero,
                     beamRadius,
                     glowRadius);
              poseStack.popPose();

@@ -5,9 +5,12 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+
+import java.awt.*;
 
 
 public class ConfigColorScreen extends Screen {
@@ -114,16 +117,24 @@ public class ConfigColorScreen extends Screen {
 
         guiGraphics.drawCenteredString(this.font, Component.translatable("screen.quickping.config_color.preview"), centerX, previewY - 20, 0xFFFFFF);
 
-        int previewSize = 60;
+        int previewSize = 32;
         int previewX = centerX - previewSize / 2;
 
+        Color color = new Color(r,g,b,1.0f);
+        int colorInt = color.getRGB();
 
-        guiGraphics.setColor(r, g, b, 1.0f);
         guiGraphics.blit(
+                RenderType::guiTextured,
                 ResourceLocation.fromNamespaceAndPath("quickping", "textures/particle/ping.png"),
-                previewX, previewY, 0, 0, previewSize, previewSize, previewSize, previewSize
+                previewX,
+                previewY,
+                0,
+                0,
+                previewSize,
+                previewSize,
+                32,32,
+                colorInt
         );
-        guiGraphics.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 
         String rgbText = String.format("%.0f, %.0f, %.0f", r * 255, g * 255, b * 255);
         guiGraphics.drawCenteredString(this.font, rgbText, centerX, previewY + previewSize + 10, 0xFFFFFF);
